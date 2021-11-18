@@ -1,59 +1,58 @@
 <script>
-    import Cookies from 'js-cookie'
+  import Cookies from 'js-cookie';
 
-    let list = Cookies.get('list');
+  let list = Cookies.get('list');
 
-    setInterval(function(){ 
+  setInterval(function () {
     list = Cookies.get('list');
-}, 1);
+  }, 1);
 
-    $: todoData = JSON.parse(list);
-    $: arrayList = JSON.parse(list);
-    $: arrayList.splice(0, 1)
-   
+  $: todoData = JSON.parse(list);
+  $: arrayList = JSON.parse(list);
+  $: arrayList.splice(0, 1);
 
-
-    const remove = (todo) => {
-        let todoPosition = arrayList.indexOf(todo) + 1;
-        todoData.splice(todoPosition ,1);
-        Cookies.set('list', JSON.stringify(todoData))
-    };
+  const remove = (todo) => {
+    let todoPosition = arrayList.indexOf(todo) + 1;
+    todoData.splice(todoPosition, 1);
+    Cookies.set('list', JSON.stringify(todoData));
+  };
 </script>
 
 <div class="container">
-
-{#each arrayList as todoList}
-<article class="card">
-    <li>
+  {#each arrayList as todoList}
+    <article class="card">
+      <li>
         <header>
-            <h3>{todoList}</h3> <button class="" on:click={remove(todoList)}>Remove</button>
+          <h3>{todoList}</h3>
+          <button class="" on:click={remove(todoList)}>Remove</button>
         </header>
-        
-    </li>
-</article>
-{/each}
-
+      </li>
+    </article>
+  {/each}
 </div>
 
 <style>
-    .container {
-        display: flex;
-        flex-direction: column-reverse;
-    }
+  .container {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
 
-    li {
-        list-style-type: none;
-    }
+  li {
+    list-style-type: none;
+    background-color: #f5cece;
+    color: #885a5a;
+    border: none;
+  }
 
-    header {
-        display: flex;
-        align-items: center;
-    }
+  header {
+    display: flex;
+    align-items: center;
+  }
 
-    button {
-        margin-left: auto;
-    }
-
-
+  button {
+    margin-left: auto;
+    background-color: #885a5a;
+  }
 </style>
-
